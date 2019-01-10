@@ -23,8 +23,10 @@ def build_highwaters():
     highwaters = {}
     for node, topics in local_node_highwaters.items():
         for topic, partitions in topics.items():
-            highwaters[topic] = {**highwaters.get(topic, {}), **partitions}
-
+            if topic in highwaters:
+                highwaters[topic] = partitions
+            else:
+                highwaters[topic] = {}
     return highwaters
 
 
@@ -38,8 +40,10 @@ def build_lowwaters():
     lowwaters = {}
     for node, topics in local_node_lowwaters.items():
         for topic, partitions in topics.items():
-            lowwaters[topic] = {**lowwaters.get(topic, {}), **partitions}
-
+            if topic in lowwaters:
+                lowwaters[topic] = partitions
+            else:
+                lowwaters[topic] = {}
     return lowwaters
 
 
